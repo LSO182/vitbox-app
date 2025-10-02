@@ -1,0 +1,145 @@
+:root {
+  color-scheme: light;
+  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  background-color: #f8f9fa;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: #1f2937;
+}
+
+#app {
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+main {
+  padding: 1.5rem 1rem 3rem;
+}
+
+.section-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.card-class {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card-class:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--bs-box-shadow);
+}
+
+.badge-status-inactive {
+  background-color: #adb5bd;
+}
+
+.badge-status-active {
+  background-color: #198754;
+}
+
+.badge-action {
+  cursor: pointer;
+  user-select: none;
+}
+
+.badge-action:focus {
+  outline: 2px solid rgba(13, 110, 253, 0.6);
+  outline-offset: 2px;
+}
+
+.pwa-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border: 1px solid rgba(13, 110, 253, 0.15);
+  max-width: 320px;
+  z-index: 1080;
+}
+
+.fade-slide-enter-active,
+.fade-slide-leave-active {
+  transition: all 0.25s ease;
+}
+
+.fade-slide-enter-from,
+.fade-slide-leave-to {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.table-responsive {
+  background-color: #fff;
+  border-radius: 0.75rem;
+  box-shadow: 0 0.75rem 1.5rem rgba(15, 23, 42, 0.08);
+}
+
+.form-section {
+  background-color: #fff;
+  border-radius: 0.75rem;
+}
+
+.log-in-register-container {
+ background-color: rgba(4, 4, 4);
+}
+
+.btn-rounded {
+  border-radius: 999px;
+}
+
+.navbar-brand {
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.logo-vitbox {
+  max-width: 350px;
+  object-fit: cover;
+}
+
+@media (min-width: 992px) {
+  .logo-vitbox {
+    max-width: 450px;
+  }
+}
+
+.btn-primary {
+  background-color: #ec0000fd;
+  border-color: #ec0000fd;
+}
+
+.btn-primary:hover {
+  background-color: #b80c0cfd;
+  border-color: #b80c0cfd;
+}
+
+.btn-outline-primary {
+  background-color: transparent;
+  border-color: rgba(4, 4, 4);
+  color: rgba(4, 4, 4);
+}
+
+.btn-outline-primary:hover {
+  background-color: rgba(4, 4, 4);
+  border-color: rgba(4, 4, 4);
+}
