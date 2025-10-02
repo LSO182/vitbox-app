@@ -6,28 +6,14 @@ import type { Firestore } from 'firebase/firestore'
 import { getFirestore } from 'firebase/firestore'
 import { getMessaging, isSupported, type Messaging } from 'firebase/messaging'
 
-const FALLBACK_FIREBASE_CONFIG = {
-  apiKey: 'AIzaSyAx88I13DvJ6fylgZsRYhSkvSBhzW0irZw',
-  authDomain: 'vitboxapp.firebaseapp.com',
-  projectId: 'vitboxapp',
-  storageBucket: 'vitboxapp.firebasestorage.app',
-  messagingSenderId: '655888994652',
-  appId: '1:655888994652:web:045e07bd9a0ceca9197199',
-  measurementId: 'G-MJSV42RJKB',
-} as const
-
 const firebaseConfig = {
-  apiKey: (import.meta.env.VITE_FIREBASE_API_KEY as string) || FALLBACK_FIREBASE_CONFIG.apiKey,
-  authDomain: (import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string) || FALLBACK_FIREBASE_CONFIG.authDomain,
-  projectId: (import.meta.env.VITE_FIREBASE_PROJECT_ID as string) || FALLBACK_FIREBASE_CONFIG.projectId,
-  storageBucket:
-    (import.meta.env.VITE_FIREBASE_STORAGE_BUCKET as string) || FALLBACK_FIREBASE_CONFIG.storageBucket,
-  messagingSenderId:
-    (import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID as string) || FALLBACK_FIREBASE_CONFIG.messagingSenderId,
-  appId: (import.meta.env.VITE_FIREBASE_APP_ID as string) || FALLBACK_FIREBASE_CONFIG.appId,
-  measurementId:
-    ((import.meta.env.VITE_FIREBASE_MEASUREMENT_ID as string | undefined) ||
-      FALLBACK_FIREBASE_CONFIG.measurementId) ?? undefined,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY as string,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN as string,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID as string,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET as string,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID as string,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID as string,
+  measurementId: (import.meta.env.VITE_FIREBASE_MEASUREMENT_ID as string | undefined) || undefined,
 }
 
 const requiredKeys: Array<keyof typeof firebaseConfig> = [
