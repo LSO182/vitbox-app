@@ -82,7 +82,9 @@ const formattedDate = computed(() => {
           @click="showParticipantsTrigger && emit('viewParticipants')"
           @keydown.enter.prevent="showParticipantsTrigger && emit('viewParticipants')"
         >
-          <i class="bi bi-people-fill me-1"></i>
+          <i class="bi bi-people-fill me-1">
+            
+          </i>
           {{ gymClass.enrolledCount }}/{{ gymClass.capacity }}
         </span>
         <span class="badge bg-light text-black border p-2">
