@@ -150,8 +150,8 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
   <section>
     <header class="d-flex justify-content-between align-items-center mb-4">
       <div>
-        <h1 class="section-title">Agenda de clases</h1>
-        <p class="text-muted mb-0">Reserva tus clases matutinas o vespertinas. Cupo máximo de 20 personas por clase.</p>
+        <h1 class="section-title text-white">Agenda de clases</h1>
+        <p class="text-white mb-0">Reserva tus turnos MAÑANA o TARDE. Cupo máximo de 20 personas por clase.</p>
       </div>
     </header>
 
@@ -166,12 +166,12 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
 
     <div v-else class="row g-4">
       <div class="col-12">
-        <h4 class="mb-3">Clases por la mañana</h4>
-        <div class="row g-3">
+        <h4 class="mb-3 text-white">TURNOS MAÑANA</h4>
+        <div class="row g-3 overflow-x-scroll overflow-x-lg-hidden overflow-y-hidden flex-nowrap flex-lg-wrap">
           <div v-if="!morningClasses.length" class="col-12">
-            <div class="alert alert-light" role="alert">No hay clases matutinas cargadas por el momento.</div>
+            <div class="alert alert-light" role="alert">No hay clases del turno mañana cargadas por el momento.</div>
           </div>
-          <div v-for="gymClass in morningClasses" :key="gymClass.id" class="col-md-6 col-xl-4">
+          <div v-for="gymClass in morningClasses" :key="gymClass.id" class="col-11 col-md-6 col-xl-4">
             <ClassCard
               :gym-class="gymClass"
               :is-enrolled="isUserEnrolled(gymClass.id)"
@@ -187,12 +187,12 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
       </div>
 
       <div class="col-12">
-        <h4 class="mb-3">Clases por la tarde</h4>
-        <div class="row g-3">
+        <h4 class="mb-3 text-white">TURNOS TARDE</h4>
+        <div class="row g-3 overflow-x-scroll overflow-x-lg-hidden overflow-y-hidden flex-nowrap flex-lg-wrap">
           <div v-if="!afternoonClasses.length" class="col-12">
-            <div class="alert alert-light" role="alert">No hay clases vespertinas cargadas por el momento.</div>
+            <div class="alert alert-light" role="alert">No hay clases del turno tarde cargadas por el momento.</div>
           </div>
-          <div v-for="gymClass in afternoonClasses" :key="gymClass.id" class="col-md-6 col-xl-4">
+          <div v-for="gymClass in afternoonClasses" :key="gymClass.id" class="col-11 col-md-6 col-xl-4">
             <ClassCard
               :gym-class="gymClass"
               :is-enrolled="isUserEnrolled(gymClass.id)"

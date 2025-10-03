@@ -24,7 +24,7 @@ const emit = defineEmits<{
 const availableSlots = computed(() => props.gymClass.capacity - props.gymClass.enrolledCount)
 const isFull = computed(() => availableSlots.value <= 0)
 const statusBadgeClass = computed(() =>
-  props.gymClass.status === 'active' ? 'badge-status-active' : 'badge-status-inactive'
+  props.gymClass.status === 'active' ? 'badge-status-active pulsate-fwd' : 'badge-status-inactive'
 )
 
 const formattedDate = computed(() => {
@@ -49,12 +49,12 @@ const formattedDate = computed(() => {
       <div class="d-flex justify-content-between align-items-start mb-2">
         <div>
           <h5 class="card-title mb-1">{{ gymClass.title }}</h5>
-          <span class="badge" :class="statusBadgeClass">
+          <span class="badge p-2" :class="statusBadgeClass">
             {{ gymClass.status === 'active' ? 'Disponible' : 'Inactiva' }}
           </span>
         </div>
         <div class="text-end">
-          <span class="badge text-bg-light">
+          <span class="badge text-bg-light p-2">
             {{ gymClass.dayOfWeek }}
           </span>
           <div v-if="formattedDate" class="small text-muted">
@@ -75,7 +75,7 @@ const formattedDate = computed(() => {
       </p>
       <div class="mb-3">
         <span
-          class="badge text-bg-primary me-2"
+          class="badge text-bg-primary me-2 p-2"
           :class="{ 'badge-action': showParticipantsTrigger }"
           :role="showParticipantsTrigger ? 'button' : undefined"
           tabindex="0"
@@ -85,8 +85,8 @@ const formattedDate = computed(() => {
           <i class="bi bi-people-fill me-1"></i>
           {{ gymClass.enrolledCount }}/{{ gymClass.capacity }}
         </span>
-        <span class="badge text-bg-secondary">
-          <i class="bi bi-whistle me-1"></i>
+        <span class="badge bg-light text-black border p-2">
+          <span class="me-1" role="img" aria-label="Entrenador">🏋️‍♂️</span>
           {{ gymClass.coach }}
         </span>
       </div>
@@ -94,7 +94,7 @@ const formattedDate = computed(() => {
         <template v-if="!hideBookingActions">
           <button
             v-if="!isEnrolled"
-            class="btn btn-primary btn-rounded"
+            class="btn btn-secondary btn-rounded"
             :disabled="isFull || gymClass.status !== 'active' || disableActions"
             type="button"
             @click="emit('enroll')"

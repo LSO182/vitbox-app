@@ -162,7 +162,7 @@ export const useClassesStore = defineStore('classes', {
         date: payload.date ?? '',
         startTime: payload.startTime,
         endTime: payload.endTime,
-        capacity: payload.capacity ?? 20,
+        capacity: payload.capacity ?? 1,
         enrolledCount: 0,
         enrolledUserIds: [],
         status: payload.status ?? 'active',
