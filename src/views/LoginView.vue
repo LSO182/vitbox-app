@@ -60,7 +60,7 @@ const handleSubmit = async () => {
               required
             />
           </div>
-          <div v-if="errorMessage" class="alert alert-danger" role="alert">
+          <div v-if="errorMessage" class="alert d-inline-flex alert-light" role="alert">
             {{ errorMessage }}
           </div>
           <button class="btn btn-primary w-100 btn-rounded" type="submit" :disabled="authStore.loading">

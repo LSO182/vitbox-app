@@ -21,7 +21,7 @@ const defaultForm: GymClassFormInput = {
   date: '',
   startTime: '08:00',
   endTime: '09:00',
-  capacity: 1,
+  capacity: 20,
   status: 'active',
 }
 

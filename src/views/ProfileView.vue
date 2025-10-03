@@ -93,8 +93,8 @@ const myClasses = computed(() =>
               <label class="form-label" for="birthDate">Fecha de nacimiento</label>
               <input id="birthDate" v-model="form.birthDate" type="date" class="form-control" required />
             </div>
-            <div v-if="successMessage" class="alert alert-success" role="alert">{{ successMessage }}</div>
-            <div v-if="errorMessage" class="alert alert-danger" role="alert">{{ errorMessage }}</div>
+            <div v-if="successMessage" class="alert d-inline-flex alert-light" role="alert">{{ successMessage }}</div>
+            <div v-if="errorMessage" class="alert d-inline-flex alert-light" role="alert">{{ errorMessage }}</div>
             <button class="btn btn-primary w-100 btn-rounded" type="submit" :disabled="authStore.loading">
               Guardar cambios
             </button>
@@ -105,7 +105,7 @@ const myClasses = computed(() =>
         <div class="form-section p-4 h-100">
           <h2 class="mb-3">Mis reservas</h2>
           <p class="text-muted">Visualiza tus próximas clases y sus detalles.</p>
-          <div v-if="!myClasses.length" class="alert alert-light" role="alert">
+          <div v-if="!myClasses.length" class="alert d-inline-flex alert-light" role="alert">
             Todavía no reservaste ninguna clase. Encontralas en la sección "Clases".
           </div>
           <div v-else class="list-group list-group-flush">

@@ -88,7 +88,7 @@ onBeforeUnmount(() => {
           </div>
         </div>
         <div class="d-flex gap-2">
-          <button class="btn btn-outline-secondary btn-sm" type="button" @click="dismissBanner">
+          <button class="btn btn-outline-primary btn-sm" type="button" @click="dismissBanner">
             {{ installBannerMode === 'prompt' ? 'No, gracias' : 'Entendido' }}
           </button>
           <button

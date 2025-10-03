@@ -10,7 +10,8 @@ if (self.firebaseConfig && self.firebaseConfig.apiKey) {
     const notificationTitle = payload.notification && payload.notification.title ? payload.notification.title : 'Vitbox'
     const notificationOptions = {
       body: payload.notification && payload.notification.body ? payload.notification.body : 'Hay novedades en tus clases.',
-      icon: '/vite.svg',
+      icon: '/logo-vitbox-192.png',
+      badge: '/logo-vitbox-96.png',
       data: payload.data,
     }
 

@@ -41,6 +41,24 @@ const formattedDate = computed(() => {
   const safeMonth = month.padStart(2, '0')
   return safeDay + '/' + safeMonth + '/' + year
 })
+
+const canShare = computed(() => typeof navigator !== 'undefined' && Boolean(navigator.share))
+
+const shareClass = async () => {
+  if (typeof navigator === 'undefined' || !navigator.share) {
+    return
+  }
+  try {
+    await navigator.share({
+      title: props.gymClass.title,
+      text: `Sumate a ${props.gymClass.title} en Vitbox`,
+      url: typeof window !== 'undefined' ? window.location.origin + '/clases' : '',
+    })
+  } catch (error) {
+    console.warn('No se pudo compartir la clase', error)
+  }
+}
+
 </script>
 
 <template>
@@ -87,10 +105,18 @@ const formattedDate = computed(() => {
           </i>
           {{ gymClass.enrolledCount }}/{{ gymClass.capacity }}
         </span>
-        <span class="badge bg-light text-black border p-2">
+        <span class="badge bg-light text-black border p-2 me-2 d-inline-flex align-items-center gap-1">
           <span class="me-1" role="img" aria-label="Entrenador">🏋️‍♂️</span>
           {{ gymClass.coach }}
         </span>
+        <button
+          v-if="canShare"
+          class="btn btn btn-outline-secondary btn-sm d-inline-flex align-items-center gap-1"
+          type="button"
+          @click="shareClass"
+        >
+          <i class="bi bi-share-fill"></i>
+        </button>
       </div>
       <div class="d-flex flex-column gap-2">
         <template v-if="!hideBookingActions">
@@ -128,7 +154,7 @@ const formattedDate = computed(() => {
           </button>
         </div>
       </div>
-      <div v-if="isFull" class="alert alert-warning mt-3 mb-0 small" role="alert">
+      <div v-if="isFull" class="alert alert-warning mt-3 mb-0 small d-inline-flex" role="alert">
         La clase está completa. Activa las notificaciones para enterarte si se libera un lugar.
       </div>
     </div>

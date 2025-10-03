@@ -37,6 +37,12 @@ exports.notifySlotAvailable = onCall(async (request) => {
     data: {
       classId,
     },
+    webpush: {
+      notification: {
+        icon: "https://vitboxapp.netlify.app/logo-vitbox-192.png",
+        badge: "https://vitboxapp.netlify.app/logo-vitbox-96.png",
+      },
+    },
     tokens,
   };
 

@@ -57,6 +57,11 @@ a:hover {
   outline-offset: 2px;
 }
 
+.badge-whatsapp {
+  background-color: #25d366;
+  color: #ffffff;
+}
+
 .pwa-banner {
   position: fixed;
   bottom: 1.5rem;
@@ -138,6 +143,16 @@ a:hover {
 .btn-outline-primary:hover {
   background-color: rgba(4, 4, 4);
   border-color: rgba(4, 4, 4);
+}
+
+.btn-outline-secondary {
+ border-radius: 50%;
+}
+
+.btn-secondary {
+  background-color: rgba(4, 4, 4);
+  border: 2px solid #ec0000fd;
+  color: #fff;
 }
 
 @media (min-width: 992px) {

@@ -90,10 +90,10 @@ const handleSubmit = async () => {
               <input id="confirmPassword" v-model="form.confirmPassword" type="password" class="form-control" minlength="6" required />
             </div>
           </div>
-          <div v-if="errorMessage" class="alert alert-danger mt-3" role="alert">
+          <div v-if="errorMessage" class="alert mt-3 d-inline-flex alert-light" role="alert">
             {{ errorMessage }}
           </div>
-          <div v-if="successMessage" class="alert alert-success mt-3" role="alert">
+          <div v-if="successMessage" class="alert mt-3 d-inline-flex alert-light" role="alert">
             {{ successMessage }}
           </div>
           <button class="btn btn-primary w-100 btn-rounded mt-4" type="submit" :disabled="authStore.loading">

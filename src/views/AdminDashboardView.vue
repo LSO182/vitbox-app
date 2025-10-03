@@ -38,6 +38,17 @@ const membershipOptions = [
   { value: 'gold', label: 'Oro' },
 ]
 
+function getWhatsappLink(phone?: string) {
+  if (!phone) {
+    return undefined
+  }
+  const digits = phone.replace(/\D+/g, '')
+  if (!digits) {
+    return undefined
+  }
+  return 'https://wa.me/' + digits
+}
+
 const MOCK_USERS_STORAGE_KEY = 'vitbox-mock-users'
 
 const DEFAULT_MOCK_USERS: UserProfile[] = [
@@ -369,8 +380,8 @@ onBeforeUnmount(() => {
   <section>
     <header class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
       <div>
-        <h1 class="section-title">Panel administrativo</h1>
-        <p class="text-muted mb-0">Gestioná clases, cupos y usuarios desde un mismo lugar.</p>
+        <h1 class="section-title text-white">Panel administrativo</h1>
+        <p class="text-white mb-0">Gestioná clases, turnos y usuarios desde un mismo lugar.</p>
       </div>
       <button class="btn btn-primary btn-rounded" type="button" @click="openCreateModal">
         <i class="bi bi-plus-circle me-2"></i>
@@ -378,7 +389,7 @@ onBeforeUnmount(() => {
       </button>
     </header>
 
-    <div v-if="alertMessage" class="alert" :class="['alert', 'alert-' + alertVariant]" role="alert">
+    <div v-if="alertMessage" class="alert d-inline-flex alert-light" :class="['alert', 'alert-' + alertVariant]" role="alert">
       {{ alertMessage }}
     </div>
 
@@ -389,7 +400,7 @@ onBeforeUnmount(() => {
             <h2 class="h5 mb-0">Clases publicadas</h2>
             <span class="badge text-bg-light">{{ classesStore.classes.length }} clases</span>
           </div>
-          <div v-if="!classesStore.classes.length" class="alert alert-light" role="alert">
+          <div v-if="!classesStore.classes.length" class="alert d-inline-flex alert-light" role="alert">
             Aún no hay clases cargadas. Creá la primera con el botón "Nueva clase".
           </div>
           <div class="row g-3">
@@ -501,11 +512,11 @@ onBeforeUnmount(() => {
                   <div class="spinner-border text-primary" role="status"></div>
                   <p class="text-muted mt-3">Cargando participantes...</p>
                 </div>
-                <div v-else-if="participantsError" class="alert alert-danger" role="alert">
+                <div v-else-if="participantsError" class="alert d-inline-flex alert-light" role="alert">
                   {{ participantsError }}
                 </div>
                 <template v-else>
-                  <div v-if="!participants.length" class="alert alert-light" role="alert">
+                  <div v-if="!participants.length" class="alert d-inline-flex alert-light" role="alert">
                     No hay usuarios anotados en esta clase.
                   </div>
                   <ul v-else class="list-group list-group-flush">
@@ -523,7 +534,22 @@ onBeforeUnmount(() => {
                           <span v-else>(Sin nombre)</span>
                         </div>
                       </div>
-                      <span class="badge text-bg-secondary">{{ person.phone || 'Sin teléfono' }}</span>
+                      <span class="badge badge-whatsapp">
+                        <template v-if="getWhatsappLink(person.phone)">
+                          <a
+                            :href="getWhatsappLink(person.phone)"
+                            target="_blank"
+                            rel="noopener"
+                            class="text-white text-decoration-none"
+                          >
+                            {{ person.phone }}
+                            <i class="bi bi-whatsapp ms-1"></i>
+                          </a>
+                        </template>
+                        <template v-else>
+                          {{ person.phone || 'Sin teléfono' }}
+                        </template>
+                      </span>
                     </li>
                   </ul>
                 </template>

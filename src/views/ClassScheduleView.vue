@@ -42,7 +42,7 @@ const handleEnroll = async (classId: string) => {
   }
   try {
     await classesStore.enrollUser(classId, userId.value, membership.value)
-    showAlert('Tu reserva fue registrada con éxito. ¡Nos vemos en clase!', 'success')
+    showAlert('Tu lugar fue guardado con éxito. ¡Nos vemos en clase! 🚀', 'success')
   } catch (error) {
     showAlert((error as Error).message, 'danger')
   }
@@ -54,7 +54,7 @@ const handleUnenroll = async (classId: string) => {
   }
   try {
     await classesStore.unenrollUser(classId, userId.value)
-    showAlert('Cancelaste tu reserva. Esperamos verte pronto.', 'info')
+    showAlert('¿Por qué te bajaste? 😠 ¡No aflojes! 💪', 'info')
   } catch (error) {
     showAlert((error as Error).message, 'danger')
   }
@@ -144,6 +144,17 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
   }
   return isEnrollmentDisabled(gymClass) ? 'Alcanzaste el máximo de reservas para esta semana según tu membresía.' : null
 }
+
+const getWhatsappLink = (phone?: string) => {
+  if (!phone) {
+    return undefined
+  }
+  const digits = phone.replace(/\D+/g, '')
+  if (!digits) {
+    return undefined
+  }
+  return 'https://wa.me/' + digits
+}
 </script>
 
 <template>
@@ -155,7 +166,7 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
       </div>
     </header>
 
-    <div v-if="alertMessage" class="alert" :class="['alert', 'alert-' + alertVariant]" role="alert">
+    <div v-if="alertMessage" class="alert d-inline-flex alert-light" :class="['alert', 'alert-' + alertVariant]" role="alert">
       {{ alertMessage }}
     </div>
 
@@ -169,9 +180,11 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
         <h4 class="mb-3 text-white">TURNOS MAÑANA</h4>
         <div class="row g-3 overflow-x-scroll overflow-x-lg-hidden overflow-y-hidden flex-nowrap flex-lg-wrap">
           <div v-if="!morningClasses.length" class="col-12">
-            <div class="alert alert-light" role="alert">No hay clases del turno mañana cargadas por el momento.</div>
+            <div class="alert d-inline-flex alert-light" role="alert">
+              No hay clases del turno mañana cargadas por el momento. 😢
+            </div>
           </div>
-          <div v-for="gymClass in morningClasses" :key="gymClass.id" class="col-11 col-md-6 col-xl-4">
+          <div v-for="gymClass in morningClasses" :key="gymClass.id" :class="['col-md-6', 'col-xl-4', morningClasses.length === 1 ? 'col-12' : 'col-11']">
             <ClassCard
               :gym-class="gymClass"
               :is-enrolled="isUserEnrolled(gymClass.id)"
@@ -190,9 +203,9 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
         <h4 class="mb-3 text-white">TURNOS TARDE</h4>
         <div class="row g-3 overflow-x-scroll overflow-x-lg-hidden overflow-y-hidden flex-nowrap flex-lg-wrap">
           <div v-if="!afternoonClasses.length" class="col-12">
-            <div class="alert alert-light" role="alert">No hay clases del turno tarde cargadas por el momento.</div>
+            <div class="alert d-inline-flex alert-light" role="alert">No hay clases del turno tarde cargadas por el momento.</div>
           </div>
-          <div v-for="gymClass in afternoonClasses" :key="gymClass.id" class="col-11 col-md-6 col-xl-4">
+          <div v-for="gymClass in afternoonClasses" :key="gymClass.id" :class="['col-md-6', 'col-xl-4', afternoonClasses.length === 1 ? 'col-12' : 'col-11']">
             <ClassCard
               :gym-class="gymClass"
               :is-enrolled="isUserEnrolled(gymClass.id)"
@@ -214,20 +227,20 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title">Participantes - {{ participantsClassTitle }}</h5>
+                <h5 class="modal-title">Anotados en la clase - {{ participantsClassTitle }}</h5>
                 <button type="button" class="btn-close" aria-label="Close" @click="closeParticipantsModal"></button>
               </div>
               <div class="modal-body">
                 <div v-if="participantsLoading" class="text-center py-4">
                   <div class="spinner-border text-primary" role="status"></div>
-                  <p class="text-muted mt-3">Cargando participantes...</p>
+                  <p class="text-muted mt-3">Cargando alumnos...</p>
                 </div>
-                <div v-else-if="participantsError" class="alert alert-danger" role="alert">
+                <div v-else-if="participantsError" class="alert d-inline-flex alert-light" role="alert">
                   {{ participantsError }}
                 </div>
                 <template v-else>
-                  <div v-if="!participants.length" class="alert alert-light" role="alert">
-                    No hay usuarios anotados todavía. ¡Sé el primero en reservar!
+                  <div v-if="!participants.length" class="alert d-inline-flex alert-light" role="alert">
+                    No se anoto nadie todavía. ¡Apurate, no quedes sin lugar!
                   </div>
                   <ul v-else class="list-group list-group-flush">
                     <li
@@ -244,7 +257,22 @@ const enrollmentLimitMessage = (gymClass: GymClass) => {
                           <span v-else>(Sin nombre)</span>
                         </div>
                       </div>
-                      <span class="badge text-bg-secondary">{{ person.phone || 'Sin teléfono' }}</span>
+                      <span class="badge badge-whatsapp">
+                        <template v-if="getWhatsappLink(person.phone)">
+                          <a
+                            :href="getWhatsappLink(person.phone)"
+                            target="_blank"
+                            rel="noopener"
+                            class="text-white text-decoration-none"
+                          >
+                            {{ person.phone }}
+                            <i class="bi bi-whatsapp ms-1"></i>
+                          </a>
+                        </template>
+                        <template v-else>
+                          {{ person.phone || 'Sin teléfono' }}
+                        </template>
+                      </span>
                     </li>
                   </ul>
                 </template>
